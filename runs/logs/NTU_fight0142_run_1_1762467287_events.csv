@@ -1,0 +1,4 @@
+frame_idx,timestamp_sec,event,track_id
+0,0.0,entry,1
+36,1.2,entry,2
+37,1.2333333333333334,exit,2
