@@ -25,13 +25,6 @@ The system is designed to perform **multiple person tracking** with persistent I
 - ID labels appear above contours for quick identification.
 
 ### 5. Output Logging
-- Per-frame data stored in `.csv` format under `runs/logs/`.
-- Each record includes:
-  - Frame index
-  - Timestamp
-  - Track ID
-  - Bounding box coordinates `(x1, y1, x2, y2)`
-  - Confidence score
 | Output Type         | Description                                                             | Location          |
 | ------------------- | ----------------------------------------------------------------------- | ----------------- |
 | **Annotated Video** | Video with colored contours, tracking IDs, trajectories, and live panel | `runs/annotated/` |
