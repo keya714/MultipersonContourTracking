@@ -1,0 +1,11 @@
+# Core ML/CV Libraries
+opencv-python>=4.8.0
+numpy>=1.24.0
+ultralytics>=8.0.0
+
+# Tracking and Visualization
+supervision>=0.16.0
+
+# Web Interface
+gradio>=4.0.0
+pandas>=2.0.0
