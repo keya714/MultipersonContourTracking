@@ -1,22 +1,19 @@
-# Advanced Multi-Person Contour Tracking Dashboard
+# Multi-Person Contour Tracking Dashboard
 
 ## Project Overview
-This project implements a **state-of-the-art computer vision pipeline** for detecting, tracking, and visualizing multiple people in video feeds using open-source tools like **YOLO**, **Supervision**, and **Roboflow**.
+This project implements a **computer vision pipeline** for detecting, tracking, and visualizing multiple people in video feeds using open-source tools like **YOLO**, **Supervision**, and **ByteTrack**.
 
-The system is designed to perform **real-time person tracking** with persistent IDs, contour visualization, and structured data logging — suitable for real-world applications such as surveillance, retail analytics, or crowd management.
+The system is designed to perform **multiple person tracking** with persistent IDs, contour visualization, and structured data logging — suitable for real-world applications such as surveillance, retail analytics, or crowd management.
 
 ---
 
 ## Core Features
 
 ### 1. Video Ingestion
-- Accepts both **recorded video files** and **live webcam feeds**.
-- Handles standard formats like `.mp4`, `.avi`, etc.
+- Accepts both **recorded video files**.
 
 ### 2. Entity Detection
-- Uses **YOLO-based models** (`YOLOv8`, `YOLO11`) for person detection.
-- Custom model integration supported via **Roboflow**.
-- Configurable confidence threshold for detections.
+- Uses **YOLO-based models** (`YOLO11n-seg` as it is the fastest) for person detection.
 
 ### 3. Multi-Object Tracking
 - Powered by **ByteTrack** from the Supervision library.
@@ -35,16 +32,22 @@ The system is designed to perform **real-time person tracking** with persistent 
   - Track ID
   - Bounding box coordinates `(x1, y1, x2, y2)`
   - Confidence score
+| Output Type         | Description                                                             | Location          |
+| ------------------- | ----------------------------------------------------------------------- | ----------------- |
+| **Annotated Video** | Video with colored contours, tracking IDs, trajectories, and live panel | `runs/annotated/` |
+| **Tracking CSV**    | Structured frame-by-frame tracking log                                  | `runs/logs/*_tracks.csv`      |
+| **Event CSV**       | Entry and exit event logs                                               | `runs/logs/*_events.csv`      |
+| **Snapshots ZIP**   | Cropped images of each unique person                                    | `runs/snapshots/` |
 
 ---
 
-## Stretch Features
+## Features
 
 | Feature | Description |
 |----------|--------------|
 | **Trajectory Tracing** | Visual line showing each person’s movement path. |
 | **Entry/Exit Detection** | Logs when new people appear or disappear from frame. |
-| **Live Summary Panel** | Real-time overlay showing number of people, active IDs, confidence, entries/exits, and FPS. |
+| **Live Summary Panel** | Overlay showing number of people, active IDs, confidence, entries/exits, and FPS. |
 | **Snapshot Export** | Automatically saves cropped images of each unique person on first detection. |
 | **Performance Metrics** | Calculates live FPS and overall performance. |
 
@@ -70,7 +73,7 @@ MultipersonContourTracking/
 │   ├── annotated/             # Output videos with overlays
 │   ├── logs/                  # Tracking & event CSV files
 │   └── snapshots/             # Saved cropped person images
-│
+├── WorkingDemo.mp4            # Working demo of the code
 ├── main.py                    # Main Gradio app & processing pipeline
 ├── requirements.txt           # Python dependencies
 ├── yolo11n-seg.pt             # YOLOv11 Nano segmentation model
@@ -117,25 +120,22 @@ http://127.0.0.1:7860
 
 | File Type | Description |
 |------------|--------------|
-| `.mp4` | Annotated output video with contours, labels, and panel |
+| `.mp4` | Annotated output video with contours, labels, and panel (runs/annotated) |
 | `.csv` | Frame-wise tracking data (runs/logs) |
-| `.zip` | Cropped snapshots of detected persons |
+| `.zip` | Cropped snapshots of detected persons (runs/snapshots)|
 
 ---
 
 ## Assumptions & Limitations
 
-- Designed primarily for **person tracking** (COCO class ID = 0).  
-- Tracking IDs may occasionally switch due to **occlusion** or **rapid motion**.  
-- Real-time performance depends on GPU availability and input video resolution.  
-- FPS may drop on CPU-only systems during segmentation tasks.
+- Designed primarily for **person tracking** (COCO class ID = 0).   
+- Slow Processing due to CPU-only systems during segmentation tasks.
 
 ---
 
 ## References
 
 - [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
-- [Roboflow](https://roboflow.com)
 - [Supervision Library](https://github.com/roboflow/supervision)
 - [ByteTrack](https://github.com/ifzhang/ByteTrack)
 
