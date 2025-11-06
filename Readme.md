@@ -1,13 +1,13 @@
 # Advanced Multi-Person Contour Tracking Dashboard
 
-## 📘 Project Overview
+## Project Overview
 This project implements a **state-of-the-art computer vision pipeline** for detecting, tracking, and visualizing multiple people in video feeds using open-source tools like **YOLO**, **Supervision**, and **Roboflow**.
 
 The system is designed to perform **real-time person tracking** with persistent IDs, contour visualization, and structured data logging — suitable for real-world applications such as surveillance, retail analytics, or crowd management.
 
 ---
 
-## 🎯 Core Features
+## Core Features
 
 ### 1. Video Ingestion
 - Accepts both **recorded video files** and **live webcam feeds**.
@@ -38,7 +38,7 @@ The system is designed to perform **real-time person tracking** with persistent 
 
 ---
 
-## 🌟 Stretch Features
+## Stretch Features
 
 | Feature | Description |
 |----------|--------------|
@@ -50,7 +50,7 @@ The system is designed to perform **real-time person tracking** with persistent 
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 1. **Detection** — YOLO model identifies all persons in a frame.
 2. **Tracking** — ByteTrack assigns persistent IDs to maintain identity across frames.
@@ -60,7 +60,7 @@ The system is designed to perform **real-time person tracking** with persistent 
 
 ---
 
-## 🧩 Project Structure
+## Project Structure
 
 ```
 MultipersonContourTracking/
@@ -80,7 +80,7 @@ MultipersonContourTracking/
 
 ---
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the Repository
 ```bash
@@ -113,7 +113,7 @@ http://127.0.0.1:7860
 
 ---
 
-## 📊 Output Files
+## Output Files
 
 | File Type | Description |
 |------------|--------------|
@@ -123,7 +123,7 @@ http://127.0.0.1:7860
 
 ---
 
-## 🧩 Assumptions & Limitations
+## Assumptions & Limitations
 
 - Designed primarily for **person tracking** (COCO class ID = 0).  
 - Tracking IDs may occasionally switch due to **occlusion** or **rapid motion**.  
@@ -132,7 +132,7 @@ http://127.0.0.1:7860
 
 ---
 
-## 📘 References
+## References
 
 - [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
 - [Roboflow](https://roboflow.com)
@@ -140,9 +140,4 @@ http://127.0.0.1:7860
 - [ByteTrack](https://github.com/ifzhang/ByteTrack)
 
 ---
-
-## 🏁 Author
-**Developed by:** [Your Name]  
-**Course / Project:** Multi-Person Contour Tracking - Vision AI Pipeline  
-**Institution:** [Your Institution Name]
 
