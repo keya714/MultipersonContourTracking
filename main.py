@@ -44,7 +44,7 @@ def draw_contours_from_masks(frame, masks, color, thickness=2):
             cv2.polylines(frame, contours, isClosed=True, color=color, thickness=thickness)
 
 
-def process_video(video_file, model_choice="YOLOv11s-seg", conf_threshold=0.25, progress=gr.Progress()):
+def process_video(video_file, model_choice="yolov8n-seg.pt", conf_threshold=0.25, progress=gr.Progress()):
     """Process uploaded video with tracking."""
     ensure_dirs()
     
@@ -54,12 +54,7 @@ def process_video(video_file, model_choice="YOLOv11s-seg", conf_threshold=0.25, 
     progress(0, desc="Loading model...")
     
     # Load model
-    model_map = {
-        "YOLOv11s-seg": "yolo11s-seg.pt",
-        "YOLOv8s-seg": "yolov8s-seg.pt",
-        "YOLOv11m-seg": "yolo11m-seg.pt"
-    }
-    model_path = model_map.get(model_choice, "yolo11s-seg.pt")
+    model_path = model_choice
     
     try:
         model = YOLO(model_path)
@@ -272,11 +267,11 @@ with gr.Blocks(title="Video Tracking Dashboard", theme=gr.themes.Soft()) as demo
         with gr.Tab(" Process Video"):
             with gr.Row():
                 with gr.Column(scale=1):
-                    video_input = gr.Video(label="Upload Video")
+                    video_input = gr.Video(label="Upload Video", sources=["upload"])
                     process_btn = gr.Button(" Process Video", variant="primary")
                 
                 with gr.Column(scale=1):
-                    output_video = gr.Video(label="Annotated Video")
+                    output_video = gr.Video(label="Annotated Video", autoplay=True)
                     output_status = gr.Textbox(label="Status", lines=10)
                     download_csv = gr.File(label="Download Tracking Data (CSV)")
             
@@ -286,40 +281,29 @@ with gr.Blocks(title="Video Tracking Dashboard", theme=gr.themes.Soft()) as demo
                 outputs=[output_video, download_csv, output_status]
             )
         
-        # # Tab 2: View Existing Results
-        # with gr.Tab(" View Results"):
+ 
+        # # Tab 2: Webcam (Future)
+        # with gr.Tab("WebCam"):
         #     with gr.Row():
         #         with gr.Column(scale=1):
-        #             gr.Markdown("### Processed Videos")
-        #             refresh_btn = gr.Button("Refresh List")
-        #             video_gallery = gr.Dropdown(
-        #                 choices=load_existing_videos(),
-        #                 label="Select Video"
+        #             webcam_input = gr.Video(
+        #                 label="Record from Webcam",
+        #                 sources=["webcam"],
+        #                 include_audio=False,  # Disable audio for faster processing
+        #                 mirror_webcam=True
         #             )
-                    
-        #         with gr.Column(scale=2):
-        #             viewer_video = gr.Video(label="Video Player")
-        #             tracking_table = gr.DataFrame(label="Tracking Data")
+        #             process_webcam_btn = gr.Button(" Process Video", variant="primary")
+                
+        #         with gr.Column(scale=1):
+        #             webcam_output_video = gr.Video(label="Annotated Video")
+        #             webcam_output_status = gr.Textbox(label="Status", lines=10)
+        #             webcam_download_csv = gr.File(label="Download Tracking Data (CSV)")
             
-        #     refresh_btn.click(
-        #         fn=lambda: gr.update(choices=load_existing_videos()),
-        #         outputs=[video_gallery]
+        #     process_webcam_btn.click(
+        #         fn=process_video,
+        #         inputs=[webcam_input],
+        #         outputs=[webcam_output_video, webcam_download_csv, webcam_output_status]
         #     )
-            
-        #     video_gallery.change(
-        #         fn=lambda x: (x, load_tracking_data(x)),
-        #         inputs=[video_gallery],
-        #         outputs=[viewer_video, tracking_table]
-        #     )
-        
-        # # Tab 3: Webcam (Future)
-        # with gr.Tab(" Webcam"):
-        #     gr.Markdown("""
-        #     ### Real-time Webcam Tracking
-        #     *Coming soon - this will enable live tracking from your webcam*
-        #     """)
-        #     webcam_btn = gr.Button("Start Webcam", variant="secondary", interactive=False)
-    
 
 
 if __name__ == "__main__":
